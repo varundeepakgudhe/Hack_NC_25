@@ -219,7 +219,7 @@ function HomePage() {
                     <Marker position={{ lat: coords.latitude, lng: coords.longitude }} />
 
                     {/* Shelter Locations */}
-                    {manualShelters.map((shelter, index) => (
+                    {shelters.map((shelter, index) => (
                         <Marker key={index} position={{ lat: shelter.lat, lng: shelter.lng }} title={shelter.name} icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" />
                     ))}
 
