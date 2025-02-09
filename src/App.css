@@ -1,38 +1,252 @@
-.App {
+/* Global styles */
+body {
+  background-color: #000000; /* Purple theme */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh;
+  font-family: Arial, sans-serif; /* Consistent font */
+}
+
+/* Mobile-sized container (phone simulation) */
+.phone-container {
+  width: 340px; /* Standard mobile size */
+  height: 667px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff; /* White background */
+  border-radius: 20px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 30px;
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #0b0404;
+  color: white;
+  border-radius: 10px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Map container */
+.map-container {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  margin-top: 20px;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Navigation bar */
+.navbar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  background-color: #000000;
+  border-radius: 0px;
+  position: absolute;
+  bottom: 32px;
+  width: 100%;
+  left: 0%;
+  
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+}
+.coords {
+  margin-top: -10px;
+  /* font-size: 20px; */
+  margin-left: 10px;
+  color: #000000;
+  margin-bottom: -30px;
+}
+
+/* Buttons */
+.btn {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* .sos-button {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.recalculate-button {
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+} */
+
+
+/* .app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #5a3bb0; /* Keep your background color */
+  .iphone-container {
+    width: 370px; /* iPhone width */
+    height: 700px; /* iPhone height */
+    background: white;
+    border-radius: 40px;
+    box-shadow: 0px 0px 20px rgb(255, 255, 255);
+    overflow: hidden;
+    position: relative;
+    border: 10px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0px;
+    
+}
+
+/* Notch */
+.iphone-notch {
+    width: 160px;
+    height: 30px;
+    background: black;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 0 0 20px 20px;
+}
+
+.iphone-screen {
+
+    text-align: center;
+    justify-content: flex-end;
+}
+
+
+
+.mode-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* .offbtn {
+
+  background: black;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+} */
+.offbtn {
+  /* background: black; */
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  position: absolute;
+  top: 60px; /* Distance from the top */
+  left: 90%; /* Centers the button horizontally */
+  transform: translateX(-50%);
+  font-size: 40px;
+}
+
+.header_alert {
+  background-color: yellow; /* Yellow background */
+  color: black; /* Black text */
+  font-weight: bold; /* Make text bold */
+  padding: 10px; /* Add some spacing */
+  text-align: center; /* Center align the text */
+  font-size: 20px; /* Adjust font size */
+  border: 2px solid black; /* Optional: Add a black border */
+  font-weight: bold;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  border-radius: 10px;
+}
+
+
+
+
+
+
+/* for alerts page */
+
+
+.alerts-list {
+  padding: 15px;
+  max-height: 550px; 
+  overflow-y: auto; /* Enables scrolling */
+}
+
+.alert-box {
+  background-color: #ffcc00;
+  color: #000;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border-left: 5px solid red;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.alert-box h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.alert-box p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.header-alert {
+  background: black;
   color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* .input-container {
+  top: 100px; 
+  padding-top: 40px;
+
+} */
+
+/* .go-button {
+  padding-bottom: 40px;
+} */
+textarea {
+  width: 80%; /* Adjust width */
+  height: 60px; /* Increase height */
+  font-size: 16px; /* Increase text size */
+  padding: 10px;
 }
