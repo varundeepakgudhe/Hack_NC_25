@@ -1,15 +1,217 @@
+// import logo from './logo.svg';
+// import './App.css';
 
-// // code 9
-import React, { useState, useEffect } from "react";
+// function App() {
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <img src={logo} className="App-logo" alt="logo" />
+//         <p>
+//           Edit <code>src/App.js</code> and save to reload.
+//         </p>
+//         <a
+//           className="App-link"
+//           href="https://reactjs.org"
+//           target="_blank"
+//           rel="noopener noreferrer"
+//         >
+//           Learn React
+//         </a>
+//       </header>
+//     </div>
+//   );
+// }
+
+// // export default App;
+
+
+// new code down
+
+// import React from "react";
+// import { useGeolocated } from "react-geolocated";
+
+// function App() {
+//     const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({
+//         positionOptions: {
+//             enableHighAccuracy: true,
+//         },
+//         userDecisionTimeout: 5000,
+//     });
+
+//     if (!isGeolocationAvailable) {
+//         return <h2>❌ Geolocation is not available on this browser.</h2>;
+//     }
+
+//     if (!isGeolocationEnabled) {
+//         return <h2>⚠️ Geolocation is disabled. Please enable location access.</h2>;
+//     }
+
+//     return (
+//         <div style={{ textAlign: "center", padding: "20px" }}>
+//             <h1>📍 Disaster Navigation Web App</h1>
+//             {coords ? (
+//                 <h2>
+//                     🌍 Latitude: {coords.latitude} <br />
+//                     📍 Longitude: {coords.longitude}
+//                 </h2>
+//             ) : (
+//                 <h2>Fetching location...</h2>
+//             )}
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+// //new code 2 
+// import React from "react";
+// import { useGeolocated } from "react-geolocated";
+// import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+
+// const GOOGLE_MAPS_API_KEY = "AIzaSyBo_OfruLbbmPSaM-H19PD4Givdmes0RgI"; // Replace with your API key
+
+// const mapContainerStyle = {
+//     width: "100%",
+//     height: "500px",
+// };
+
+// function App() {
+//     const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({
+//         positionOptions: { enableHighAccuracy: true },
+//         userDecisionTimeout: 5000,
+//     });
+
+//     if (!isGeolocationAvailable) {
+//         return <h2>❌ Geolocation is not available on this browser.</h2>;
+//     }
+
+//     if (!isGeolocationEnabled) {
+//         return <h2>⚠️ Geolocation is disabled. Please enable location access.</h2>;
+//     }
+
+//     return (
+//         <div style={{ textAlign: "center", padding: "20px" }}>
+//             <h1>📍 Disaster Navigation Web App</h1>
+//             {coords ? (
+//                 <>
+//                     <h2>
+//                         🌍 Latitude: {coords.latitude} <br />
+//                         📍 Longitude: {coords.longitude}
+//                     </h2>
+//                     <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
+//                         <GoogleMap
+//                             mapContainerStyle={mapContainerStyle}
+//                             center={{ lat: coords.latitude, lng: coords.longitude }}
+//                             zoom={15}
+//                         >
+//                             <Marker position={{ lat: coords.latitude, lng: coords.longitude }} />
+//                         </GoogleMap>
+//                     </LoadScript>
+//                 </>
+//             ) : (
+//                 <h2>Fetching location...</h2>
+//             )}
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+//new code 3. this searches from google for shelters.
+
+// import React, { useState, useEffect } from "react";
+// import { useGeolocated } from "react-geolocated";
+// import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+// import axios from "axios";
+
+// const GOOGLE_MAPS_API_KEY = "AIzaSyBo_OfruLbbmPSaM-H19PD4Givdmes0RgI"; // Replace with your API Key
+
+// const mapContainerStyle = {
+//     width: "100%",
+//     height: "500px",
+// };
+
+// function App() {
+//     const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({
+//         positionOptions: { enableHighAccuracy: true },
+//         userDecisionTimeout: 5000,
+//     });
+
+//     const [shelters, setShelters] = useState([]);
+
+//     // Fetch nearby shelters
+//     useEffect(() => {
+//         if (coords) {
+//             const fetchShelters = async () => {
+//                 const response = await axios.get(
+//                     `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.latitude},${coords.longitude}&radius=5000&type=shelter&key=${GOOGLE_MAPS_API_KEY}`
+//                 );
+//                 setShelters(response.data.results);
+//             };
+
+//             fetchShelters();
+//         }
+//     }, [coords]);
+
+//     if (!isGeolocationAvailable) {
+//         return <h2>❌ Geolocation is not available on this browser.</h2>;
+//     }
+
+//     if (!isGeolocationEnabled) {
+//         return <h2>⚠️ Geolocation is disabled. Please enable location access.</h2>;
+//     }
+
+//     return (
+//         <div style={{ textAlign: "center", padding: "20px" }}>
+//             <h1>📍 Disaster Navigation Web App</h1>
+//             {coords ? (
+//                 <>
+//                     <h2>
+//                         🌍 Latitude: {coords.latitude} <br />
+//                         📍 Longitude: {coords.longitude}
+//                     </h2>
+//                     <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
+//                         <GoogleMap
+//                             mapContainerStyle={mapContainerStyle}
+//                             center={{ lat: coords.latitude, lng: coords.longitude }}
+//                             zoom={14}
+//                         >
+//                             {/* User's Location */}
+//                             <Marker position={{ lat: coords.latitude, lng: coords.longitude }} />
+
+//                             {/* Shelter Locations */}
+//                             {shelters.map((shelter, index) => (
+//                                 <Marker
+//                                     key={index}
+//                                     position={{
+//                                         lat: shelter.geometry.location.lat,
+//                                         lng: shelter.geometry.location.lng,
+//                                     }}
+//                                     title={shelter.name}
+//                                     icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+//                                 />
+//                             ))}
+//                         </GoogleMap>
+//                     </LoadScript>
+//                 </>
+//             ) : (
+//                 <h2>Fetching location...</h2>
+//             )}
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+//new code 4
+import React, { useState, useEffect }  from "react";
 import { useGeolocated } from "react-geolocated";
-import {
-    GoogleMap,
-    useJsApiLoader,
-    Marker,
-    DirectionsRenderer,
-    TrafficLayer,
-    Circle
-} from "@react-google-maps/api";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import axios from "axios";
 
 const GOOGLE_MAPS_API_KEY = "AIzaSyBo_OfruLbbmPSaM-H19PD4Givdmes0RgI"; 
 
@@ -41,6 +243,14 @@ const restrictedRoads = [
     {lat: 35.7721, lng: -78.6500 },
     {lat: 35.7790, lng: -78.6403},
 ];
+// 🔹 Manually define shelter locations
+// const manualShelters = [
+//     { name: "Shelter 1", lat: 35.7796, lng: -78.6382 },
+//     { name: "Shelter 2", lat: 35.7746, lng: -78.6400 },
+//     { name: "Shelter 3", lat: 35.7721, lng: -78.6500 },
+// ];
+
+
 
 function App() {
     // Ensure Google Maps API is loaded
@@ -54,75 +264,72 @@ function App() {
         userDecisionTimeout: 5000,
     });
 
-    const [directions, setDirections] = useState(null);
+    const [zones, setZones] = useState([]);
+    const [city, setCity] = useState(null);
+    const [state, setState] = useState(null);
 
     useEffect(() => {
-        if (isLoaded && coords) {
-            const userLocation = { lat: coords.latitude, lng: coords.longitude };
+        if (coords) {
+            const fetchCityState = async () => {
+                const lat = coords.latitude;
+                const lng = coords.longitude;
 
-            // Find the nearest shelter that is NOT in a danger zone
-            const nearestShelter = manualShelters
-                .filter(shelter => !isInsideDangerZone(shelter.lat, shelter.lng))
-                .reduce((prev, curr) => {
-                    const prevDistance = Math.hypot(prev.lat - userLocation.lat, prev.lng - userLocation.lng);
-                    const currDistance = Math.hypot(curr.lat - userLocation.lat, curr.lng - userLocation.lng);
-                    return prevDistance < currDistance ? prev : curr;
-                });
+                try {
+                    const res = await axios.get(
+                        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_MAPS_API_KEY}`
+                    );
 
-            if (!nearestShelter) {
-                console.error("No safe shelter available!");
-                return;
-            }
+                    const addressComponents = res.data.results[0].address_components;
 
-            // Generate waypoints to avoid restricted roads
-            const waypoints = generateWaypoints(userLocation, nearestShelter);
+                    // Find city and state in the address components
+                    let city = null;
+                    let state = null;
 
-            // Request route from Google Directions API avoiding restricted roads
-            const fetchDirections = new window.google.maps.DirectionsService();
-            fetchDirections.route(
-                {
-                    origin: userLocation,
-                    destination: { lat: nearestShelter.lat, lng: nearestShelter.lng },
-                    travelMode: "DRIVING",
-                    avoidHighways: false,  // Helps avoid blocked areas
-                    avoidTolls: false,
-                    waypoints: waypoints, // Forces Google to bypass restricted roads
-                },
-                (result, status) => {
-                    if (status === "OK") {
-                        setDirections(result);
-                    } else {
-                        console.error("Error fetching directions:", status);
-                    }
+                    addressComponents.forEach((component) => {
+                        if (component.types.includes("locality")) {
+                            city = component.long_name;
+                        }
+                        if (component.types.includes("administrative_area_level_1")) {
+                            state = component.long_name;
+                        }
+                    });
+
+                    setCity(city);
+                    setState(state);
+                    const response = await axios.post('http://127.0.0.1:5000/api/zones', {
+                        // latitude: coords.latitude,
+                        // longitude: coords.longitude
+                        state: state,
+                    }, {
+                        withCredentials: true, // Ensure credentials are sent
+                    });
+                    setZones(response.data);
+                    console.log(response.data);
+                } catch (error) {
+                    console.error("Error fetching city and state:", error);
                 }
-            );
+            };
+
+            fetchCityState();
         }
-    }, [coords, isLoaded]);
+    }, [coords]);
 
-    // Function to check if a location is inside a danger zone
-    const isInsideDangerZone = (lat, lng) => {
-        return dangerZones.some(zone => {
-            const distance = Math.hypot(lat - zone.lat, lng - zone.lng) * 111000; // Convert degrees to meters
-            return distance < zone.radius;
-        });
-    };
+    // useEffect(() => {
+    //     if (coords) {
+    //         const fetchZones = async () => {
+    //             const response = await axios.post('http://127.0.0.1:5000/api/zones', {
+    //                 latitude: coords.latitude,
+    //                 longitude: coords.longitude
+    //             }, {
+    //                 withCredentials: true, // Ensure credentials are sent
+    //             });
+    //             setZones(response.data);
+    //             console.log(response.data);
+    //         };
 
-    // Function to generate waypoints to avoid restricted roads
-    const generateWaypoints = (start, end) => {
-        const waypoints = [];
-
-        restrictedRoads.forEach(road => {
-            const detourLat = road.lat + 0.02;  // Shift to force rerouting
-            const detourLng = road.lng + 0.02;
-            
-            waypoints.push({
-                location: { lat: detourLat, lng: detourLng },
-                stopover: false,
-            });
-        });
-
-        return waypoints;
-    };
+    //         fetchZones();
+    //     }
+    // }, [coords]);
 
     if (!isGeolocationAvailable) {
         return <h2>❌ Geolocation is not available on this browser.</h2>;
@@ -156,34 +363,17 @@ function App() {
                         {/* User's Location */}
                         <Marker position={{ lat: coords.latitude, lng: coords.longitude }} />
 
-                        {/* Shelter Locations */}
-                        {manualShelters.map((shelter, index) => (
-                            <Marker
-                                key={index}
-                                position={{ lat: shelter.lat, lng: shelter.lng }}
-                                title={shelter.name}
-                                icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-                            />
-                        ))}
-
-                        {/* Danger Zones (Red Circles) */}
-                        {dangerZones.map((zone, index) => (
-                            <Circle
-                                key={index}
-                                center={{ lat: zone.lat, lng: zone.lng }}
-                                radius={zone.radius}
-                                options={{
-                                    fillColor: "rgba(255, 0, 0, 0.4)", // Red with transparency
-                                    strokeColor: "red",
-                                    strokeOpacity: 1,
-                                    strokeWeight: 2,
-                                }}
-                            />
-                        ))}
-
-                        {/* Render the Route to the Nearest Safe Shelter */}
-                        {directions && <DirectionsRenderer directions={directions} />}
-                    </GoogleMap>
+                            {/* Manually Added Shelters */}
+                            {zones.map((zone, index) => (
+                                <Marker
+                                    key={index}
+                                    position={{ lat: zone.latitude, lng: zone.longitude }}
+                                    title={zone.description}
+                                    icon={zone.zoneType === "safe" ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png" : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
+                                />
+                            ))}
+                        </GoogleMap>
+                    </LoadScript>
                 </>
             ) : (
                 <h2>Fetching location...</h2>
