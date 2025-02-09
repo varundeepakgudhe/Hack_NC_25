@@ -4,6 +4,7 @@ import pymongo
 import sys
 import google.generativeai as genai
 import certifi
+
 from pymongo import MongoClient
 
 app = Flask(__name__)
@@ -13,7 +14,8 @@ genai.configure(api_key='AIzaSyAZqpintuMDUnV7NRRrNRsQMM65W-HUnOQ')
 model = genai.GenerativeModel('gemini-1.5-pro-001')
 
 try:
-  client = pymongo.MongoClient("mongodb+srv://jahnavi:hackncstate25@cluster0.gq37d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", tlsCAFile=certifi.where())
+  client = pymongo.MongoClient("mongodb+srv://jahnavi:hackncstate25@cluster0.gq37d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", tlsCAFile=certifi.where()
+)
   
 except pymongo.errors.ConfigurationError:
   print("An Invalid URI host error was received. Is your Atlas host name correct in your connection string?")
@@ -371,7 +373,8 @@ if __name__ == '__main__':
     add_location_documents(manualShelters, shelters_collection)
     add_location_documents(dangerZones, danger_zones_collection)
     add_location_documents(restrictedRoads, restricted_roads_collection)
-    app.run(host="0.0.0.0", port=5000,debug=True)
+
+    app.run(host="0.0.0.0", port=5000, debug=True)
 
 # # Example: Query for locations based on a given latitude & longitude
 # latitude = 34.052235
