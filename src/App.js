@@ -100,6 +100,7 @@ function HomePage() {
     const [loading, setLoading] = useState(true); // Track loading state
 
     useEffect(() => {
+
         if (shelters.length > 0 && dangerZones.length > 0 && restrictedRoads.length > 0) {
             setLoading(false); // Set loading to false once data is available
         }
