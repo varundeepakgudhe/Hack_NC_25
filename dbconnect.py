@@ -3,6 +3,7 @@ from flask_cors import CORS
 import pymongo
 import sys
 import certifi
+from pymongo import MongoClient
 app = Flask(__name__)
 CORS(app, supports_credentials=True, methods=["GET", "POST", "OPTIONS"], allow_headers=["Content-Type"])  # Fixes CORS issues
 
@@ -330,7 +331,7 @@ if __name__ == '__main__':
     add_location_documents(manualShelters, shelters_collection)
     add_location_documents(dangerZones, danger_zones_collection)
     add_location_documents(restrictedRoads, restricted_roads_collection)
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
 
 # # Example: Query for locations based on a given latitude & longitude
 # latitude = 34.052235
