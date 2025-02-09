@@ -1,6 +1,6 @@
 /* Global styles */
 body {
-  background-color: #5a3bb0; /* Purple theme */
+  background-color: #000000; /* Purple theme */
   margin: 0;
   padding: 0;
   display: flex;
@@ -46,7 +46,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  margin-top: 35px;
+  margin-top: 20px;
 
 }
 
@@ -71,11 +71,11 @@ body {
   font-size: 18px;
 }
 .coords {
-  margin-top: 10px;
-  font-size: 20px;
+  margin-top: -10px;
+  /* font-size: 20px; */
   margin-left: 10px;
   color: #000000;
-  margin-bottom: -10px;
+  margin-bottom: -30px;
 }
 
 /* Buttons */
@@ -109,11 +109,11 @@ body {
   height: 100vh;
   background: #5a3bb0; /* Keep your background color */
   .iphone-container {
-    width: 375px; /* iPhone width */
+    width: 370px; /* iPhone width */
     height: 700px; /* iPhone height */
     background: white;
     border-radius: 40px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 20px rgb(255, 255, 255);
     overflow: hidden;
     position: relative;
     border: 10px solid black;
@@ -142,3 +142,105 @@ body {
     text-align: center;
     justify-content: flex-end;
 }
+
+
+
+.mode-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* .offbtn {
+
+  background: black;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+} */
+.offbtn {
+  /* background: black; */
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  position: absolute;
+  top: 60px; /* Distance from the top */
+  left: 90%; /* Centers the button horizontally */
+  transform: translateX(-50%);
+  font-size: 40px;
+}
+
+.header_alert {
+  background-color: yellow; /* Yellow background */
+  color: black; /* Black text */
+  font-weight: bold; /* Make text bold */
+  padding: 10px; /* Add some spacing */
+  text-align: center; /* Center align the text */
+  font-size: 20px; /* Adjust font size */
+  border: 2px solid black; /* Optional: Add a black border */
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+
+
+
+
+
+/* for alerts page */
+
+
+.alerts-list {
+  padding: 15px;
+  max-height: 550px; 
+  overflow-y: auto; /* Enables scrolling */
+}
+
+.alert-box {
+  background-color: #ffcc00;
+  color: #000;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border-left: 5px solid red;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.alert-box h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.alert-box p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.header-alert {
+  background: black;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
+
+.input-container {
+  top: 100px; 
+  padding-top: 40px;
+
+}
+
+/* .go-button {
+
+} */

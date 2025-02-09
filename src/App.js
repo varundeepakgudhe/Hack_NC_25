@@ -1,8 +1,10 @@
 import './App.css';
-import DeviceFrame from "react-device-frame";
+// import DeviceFrame from "react-device-frame";
 // import  {DeviceFrameset}  from "react-device-frameset";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, useLocation } from "react-router-dom";
 import AlertsPage from "./alerts";
+import OfflineNavigation from "./Offline";
+import ReliefNavigation from "./ReliefNavigation";
 // // code 9
 import React, { useState, useEffect } from "react";
 import { useGeolocated } from "react-geolocated";
@@ -24,7 +26,7 @@ const mapContainerStyle = {
 
 // Manually define shelters
 const manualShelters = [
-    { name: "Shelter 1", lat: 35.7796, lng: -78.6382 },
+    { name: "Shelter 1", lat: 35.7796, lng: -78.6282 },
     { name: "Shelter 2", lat: 35.7746, lng: -78.6400 },
     { name: "Shelter 3", lat: 35.7721, lng: -78.6500 },
     { name: "Shelter 4", lat: 35.7766, lng: -78.6610 },
@@ -34,9 +36,9 @@ const manualShelters = [
 // Manually define danger zones (These areas should be avoided)
 const dangerZones = [
     // { lat: 35.7760, lng: -78.6400, radius: 50 }, // 5 km
-    { lat: 35.7766, lng: -78.6610, radius: 400 },
-    {lat: 35.7721, lng: -78.6500,radius: 400 }, // 3 km
-    {lat: 35.7790, lng: -78.6400 , radius: 130},
+    { lat: 35.7766, lng: -78.6610, radius: 250 },
+    {lat: 35.7721, lng: -78.6500,radius: 300 }, // 3 km
+    {lat: 35.7794, lng: -78.6380 , radius: 35},
 ];
 
 // Manually define restricted roads to avoid
@@ -51,12 +53,15 @@ function App() {
     return (
       <div className="iphone-container">
         <div className="iphone-notch"></div>
+        {/* Toggle Button for Online/Offline Mode */}
+        {/* <ModeToggle /> */}
         <div className="iphone-screen">
         <Router>
             <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/offline" element={<OfflineNavigation />} />
                 <Route path="/alerts" element={<AlertsPage />} />
-                <Route path="/danger" element={<h2>☠️ Danger Info Coming Soon</h2>} />
+                <Route path="/ReliefNavigation" element={<ReliefNavigation />} />
                 <Route path="/finance" element={<h2>💵 Financial Aid Info Coming Soon</h2>} />
             </Routes>
         </Router>
@@ -64,6 +69,7 @@ function App() {
         </div>
     );
 }
+
 
 function HomePage() {
     const { isLoaded } = useJsApiLoader({
@@ -200,12 +206,13 @@ function HomePage() {
             {/* <button className="btn sos-button">🚨 SOS Emergency</button> */}
             {/* <button className="btn recalculate-button">🔄 Recalculate Route</button> */}
             
-
+            <Link to="/offline" className="offbtn">📵</Link>
+           
             {/* Bottom Navigation */}
             <div className="navbar">
                 <Link to="/alerts">⚠️</Link>
                 <Link to="/">🏠</Link>
-                <Link to="/danger">☠️</Link>
+                <Link to="/ReliefNavigation">☠️</Link>
                 <Link to="/finance">💵</Link>
             </div>
         </div>
