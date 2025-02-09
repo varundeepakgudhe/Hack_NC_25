@@ -1,6 +1,5 @@
-
-// // code 9
 import React, { useState, useEffect } from "react";
+import './App.css';
 import { useGeolocated } from "react-geolocated";
 import {
     GoogleMap,
@@ -15,7 +14,7 @@ const GOOGLE_MAPS_API_KEY = "AIzaSyBo_OfruLbbmPSaM-H19PD4Givdmes0RgI";
 
 const mapContainerStyle = {
     width: "100%",
-    height: "500px",
+    height: "100%",
 };
 
 // Manually define shelters
@@ -28,22 +27,20 @@ const manualShelters = [
 
 // Manually define danger zones (These areas should be avoided)
 const dangerZones = [
-    // { lat: 35.7760, lng: -78.6400, radius: 50 }, // 5 km
     { lat: 35.7766, lng: -78.6610, radius: 400 },
-    {lat: 35.7721, lng: -78.6500,radius: 400 }, // 3 km
+    {lat: 35.7721, lng: -78.6500, radius: 400 },
     {lat: 35.7790, lng: -78.6400 , radius: 130},
 ];
 
 // Manually define restricted roads to avoid
 const restrictedRoads = [
-    { lat: 35.776, lng: -78.6610 }, // Example blocked road inside danger zone
+    { lat: 35.776, lng: -78.6610 },
     { lat: 35.7766, lng: -78.6610 },
     {lat: 35.7721, lng: -78.6500 },
     {lat: 35.7790, lng: -78.6403},
 ];
 
 function App() {
-    // Ensure Google Maps API is loaded
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: GOOGLE_MAPS_API_KEY,
         libraries: ["places"],
@@ -60,7 +57,6 @@ function App() {
         if (isLoaded && coords) {
             const userLocation = { lat: coords.latitude, lng: coords.longitude };
 
-            // Find the nearest shelter that is NOT in a danger zone
             const nearestShelter = manualShelters
                 .filter(shelter => !isInsideDangerZone(shelter.lat, shelter.lng))
                 .reduce((prev, curr) => {
@@ -74,19 +70,17 @@ function App() {
                 return;
             }
 
-            // Generate waypoints to avoid restricted roads
             const waypoints = generateWaypoints(userLocation, nearestShelter);
 
-            // Request route from Google Directions API avoiding restricted roads
             const fetchDirections = new window.google.maps.DirectionsService();
             fetchDirections.route(
                 {
                     origin: userLocation,
                     destination: { lat: nearestShelter.lat, lng: nearestShelter.lng },
                     travelMode: "DRIVING",
-                    avoidHighways: false,  // Helps avoid blocked areas
+                    avoidHighways: false,
                     avoidTolls: false,
-                    waypoints: waypoints, // Forces Google to bypass restricted roads
+                    waypoints: waypoints,
                 },
                 (result, status) => {
                     if (status === "OK") {
@@ -99,20 +93,18 @@ function App() {
         }
     }, [coords, isLoaded]);
 
-    // Function to check if a location is inside a danger zone
     const isInsideDangerZone = (lat, lng) => {
         return dangerZones.some(zone => {
-            const distance = Math.hypot(lat - zone.lat, lng - zone.lng) * 111000; // Convert degrees to meters
+            const distance = Math.hypot(lat - zone.lat, lng - zone.lng) * 111000;
             return distance < zone.radius;
         });
     };
 
-    // Function to generate waypoints to avoid restricted roads
     const generateWaypoints = (start, end) => {
         const waypoints = [];
 
         restrictedRoads.forEach(road => {
-            const detourLat = road.lat + 0.02;  // Shift to force rerouting
+            const detourLat = road.lat + 0.02;
             const detourLng = road.lng + 0.02;
             
             waypoints.push({
@@ -137,7 +129,7 @@ function App() {
     }
 
     return (
-        <div style={{ textAlign: "center", padding: "20px" }}>
+        <div className="phone-container">
             <h1>📍 Disaster Navigation Web App</h1>
             {coords ? (
                 <>
@@ -145,45 +137,38 @@ function App() {
                         🌍 Latitude: {coords.latitude} <br />
                         📍 Longitude: {coords.longitude}
                     </h2>
-                    <GoogleMap
-                        mapContainerStyle={mapContainerStyle}
-                        center={{ lat: coords.latitude, lng: coords.longitude }}
-                        zoom={14}
-                    >
-                        {/* Traffic Layer - Shows real-time traffic */}
-                        <TrafficLayer />
-
-                        {/* User's Location */}
-                        <Marker position={{ lat: coords.latitude, lng: coords.longitude }} />
-
-                        {/* Shelter Locations */}
-                        {manualShelters.map((shelter, index) => (
-                            <Marker
-                                key={index}
-                                position={{ lat: shelter.lat, lng: shelter.lng }}
-                                title={shelter.name}
-                                icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-                            />
-                        ))}
-
-                        {/* Danger Zones (Red Circles) */}
-                        {dangerZones.map((zone, index) => (
-                            <Circle
-                                key={index}
-                                center={{ lat: zone.lat, lng: zone.lng }}
-                                radius={zone.radius}
-                                options={{
-                                    fillColor: "rgba(255, 0, 0, 0.4)", // Red with transparency
-                                    strokeColor: "red",
-                                    strokeOpacity: 1,
-                                    strokeWeight: 2,
-                                }}
-                            />
-                        ))}
-
-                        {/* Render the Route to the Nearest Safe Shelter */}
-                        {directions && <DirectionsRenderer directions={directions} />}
-                    </GoogleMap>
+                    <div className="map-container">
+                        <GoogleMap
+                            mapContainerStyle={mapContainerStyle}
+                            center={{ lat: coords.latitude, lng: coords.longitude }}
+                            zoom={14}
+                        >
+                            <TrafficLayer />
+                            <Marker position={{ lat: coords.latitude, lng: coords.longitude }} />
+                            {manualShelters.map((shelter, index) => (
+                                <Marker
+                                    key={index}
+                                    position={{ lat: shelter.lat, lng: shelter.lng }}
+                                    title={shelter.name}
+                                    icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                                />
+                            ))}
+                            {dangerZones.map((zone, index) => (
+                                <Circle
+                                    key={index}
+                                    center={{ lat: zone.lat, lng: zone.lng }}
+                                    radius={zone.radius}
+                                    options={{
+                                        fillColor: "rgba(255, 0, 0, 0.4)",
+                                        strokeColor: "red",
+                                        strokeOpacity: 1,
+                                        strokeWeight: 2,
+                                    }}
+                                />
+                            ))}
+                            {directions && <DirectionsRenderer directions={directions} />}
+                        </GoogleMap>
+                    </div>
                 </>
             ) : (
                 <h2>Fetching location...</h2>

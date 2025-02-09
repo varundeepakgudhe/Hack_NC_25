@@ -1,38 +1,39 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  background-color: #5a3bb0; /* Purple color or any color you prefer */
+  margin: 0;
+  padding: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: center; /* Center the container horizontally */
+  align-items: center; /* Center the container vertically */
+  height: 100vh; /* Full screen height */
 }
 
-.App-link {
-  color: #61dafb;
+/* Phone-sized container */
+.phone-container {
+  width: 375px; /* iPhone 6/7/8 screen width */
+  height: 667px; /* iPhone 6/7/8 screen height */
+  margin: 0 auto; /* Center it horizontally */
+  padding: 20px;
+  background-color: #ffffff; /* White background for the container */
+  border-radius: 20px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  overflow: hidden; /* Prevent content overflow */
+  display: flex;
+  flex-direction: column; /* Stack text and map vertically */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* Map container style */
+.map-container {
+  flex-grow: 1; /* Allow map container to take available space */
+  width: 100%;
+  height: 100%;
+  border-radius: 10px; /* Rounded corners for map */
+}
+
+/* Optional: Mobile responsive handling */
+@media (max-width: 768px) {
+  .phone-container {
+    width: 100%;
+    height: 100vh;
   }
 }
