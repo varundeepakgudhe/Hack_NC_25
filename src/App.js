@@ -64,7 +64,7 @@ function App() {
     useEffect(() => {
         const fetchShelters = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5000/api/shelters');
+                const response = await axios.get('https://hack-nc-25.onrender.com/api/shelters');
                 setShelters(response.data);
             } catch (error) {
                 console.error("Error fetching shelters:", error);
@@ -73,7 +73,7 @@ function App() {
 
         const fetchDangerZones = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5000/api/danger_zones');
+                const response = await axios.get('https://hack-nc-25.onrender.com/api/danger_zones');
                 setDangerZones(response.data);
             } catch (error) {
                 console.error("Error fetching danger zones:", error);
@@ -82,7 +82,7 @@ function App() {
 
         const fetchRestrictedRoads = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5000/api/restricted_roads');
+                const response = await axios.get('https://hack-nc-25.onrender.com/api/restricted_roads');
                 setRestrictedRoads(response.data);
             } catch (error) {
                 console.error("Error fetching restricted roads:", error);
