@@ -5,8 +5,9 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation } from "react
 import AlertsPage from "./alerts";
 import OfflineNavigation from "./Offline";
 import ReliefNavigation from "./ReliefNavigation";
+import Preparedness from './Preparedness';
 // // code 9
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios';
 import { useGeolocated } from "react-geolocated";
 import {
@@ -17,6 +18,7 @@ import {
     TrafficLayer,
     Circle
 } from "@react-google-maps/api";
+import { DataProvider, DataContext } from './DataContext';
 
 const GOOGLE_MAPS_API_KEY = "AIzaSyBo_OfruLbbmPSaM-H19PD4Givdmes0RgI"; 
 
@@ -51,7 +53,9 @@ const mapContainerStyle = {
 // ];
 
 function App() {
-    return (
+        return (
+            <DataProvider>
+
       <div className="iphone-container">
         <div className="iphone-notch"></div>
         {/* Toggle Button for Online/Offline Mode */}
@@ -60,6 +64,7 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/preparedness" element={<Preparedness />} />
                 <Route path="/offline" element={<OfflineNavigation />} />
                 <Route path="/alerts" element={<AlertsPage />} />
                 <Route path="/ReliefNavigation" element={<ReliefNavigation />} />
@@ -68,7 +73,10 @@ function App() {
         </Router>
         </div>
         </div>
-    );
+        </DataProvider>
+
+        );
+    
 }
 
 
@@ -84,44 +92,52 @@ function HomePage() {
     });
 
     const [directions, setDirections] = useState(null);
-    const [shelters, setShelters] = useState([]);
-    const [dangerZones, setDangerZones] = useState([]);
-    const [restrictedRoads, setRestrictedRoads] = useState([]);
+    // const [shelters, setShelters] = useState([]);
+    // const [dangerZones, setDangerZones] = useState([]);
+    // const [restrictedRoads, setRestrictedRoads] = useState([]);
 
+    const { shelters, dangerZones, restrictedRoads } = useContext(DataContext); // Get data from context
+    const [loading, setLoading] = useState(true); // Track loading state
 
     useEffect(() => {
-        const fetchShelters = async () => {
-            try {
-                const response = await axios.get('http://127.0.0.1:5000/api/shelters');
-                setShelters(response.data);
-            } catch (error) {
-                console.error("Error fetching shelters:", error);
-            }
-        };
+        if (shelters.length > 0 && dangerZones.length > 0 && restrictedRoads.length > 0) {
+            setLoading(false); // Set loading to false once data is available
+        }
+    }, [shelters, dangerZones, restrictedRoads]);
 
-        const fetchDangerZones = async () => {
-            try {
-                const response = await axios.get('http://127.0.0.1:5000/api/danger_zones');
-                setDangerZones(response.data);
-            } catch (error) {
-                console.error("Error fetching danger zones:", error);
-            }
-        };
+    useEffect(() => {
+        // const fetchShelters = async () => {
+        //     try {
+        //         const response = await axios.get('http://127.0.0.1:5001/api/shelters');
+        //         setShelters(response.data);
+        //     } catch (error) {
+        //         console.error("Error fetching shelters:", error);
+        //     }
+        // };
 
-        const fetchRestrictedRoads = async () => {
-            try {
-                const response = await axios.get('http://127.0.0.1:5000/api/restricted_roads');
-                setRestrictedRoads(response.data);
-            } catch (error) {
-                console.error("Error fetching restricted roads:", error);
-            }
-        };
+        // const fetchDangerZones = async () => {
+        //     try {
+        //         const response = await axios.get('http://127.0.0.1:5001/api/danger_zones');
+        //         setDangerZones(response.data);
+        //     } catch (error) {
+        //         console.error("Error fetching danger zones:", error);
+        //     }
+        // };
 
-        fetchShelters();
-        fetchDangerZones();
-        fetchRestrictedRoads();
+        // const fetchRestrictedRoads = async () => {
+        //     try {
+        //         const response = await axios.get('http://127.0.0.1:5001/api/restricted_roads');
+        //         setRestrictedRoads(response.data);
+        //     } catch (error) {
+        //         console.error("Error fetching restricted roads:", error);
+        //     }
+        // };
 
-        if (isLoaded && coords) {
+        // fetchShelters();
+        // fetchDangerZones();
+        // fetchRestrictedRoads();
+
+        if (isLoaded && coords && shelters.length > 0) {
             const userLocation = { lat: coords.latitude, lng: coords.longitude };
 
             // Find the nearest shelter that is NOT in a danger zone
@@ -246,9 +262,10 @@ function HomePage() {
            
             {/* Bottom Navigation */}
             <div className="navbar">
+                <Link to="/preparedness">ℹ️</Link>
                 <Link to="/alerts">⚠️</Link>
                 <Link to="/">🏠</Link>
-                <Link to="/ReliefNavigation">☠️</Link>
+                <Link to="/ReliefNavigation">🚑</Link>
                 <Link to="/finance">💵</Link>
             </div>
         </div>

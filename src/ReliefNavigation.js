@@ -108,9 +108,10 @@ function ReliefNavigation() {
 
             {/* Bottom Navigation */}
             <div className="navbar">
+                <Link to="/preparedness">ℹ️</Link>
                 <Link to="/alerts">⚠️</Link>
                 <Link to="/">🏠</Link>
-                <Link to="/ReliefNavigation">☠️</Link>
+                <Link to="/ReliefNavigation">🚑</Link>
                 <Link to="/finance">💵</Link>
             </div>
         </div>

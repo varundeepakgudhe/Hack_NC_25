@@ -299,7 +299,7 @@ def generate_detailed_plan(scenario, location):
     
     Generate three detailed plans of action, helping users to navigate through the situation and be well prepared. Give a
     concise response for each plan, including the steps to take, resources to use, and any other relevant information. Give the
-    answer in 100-200 words.
+    answer in 100 words and make sure there are no hashtags and stars make it printing friendly
     """
     
     response = model.generate_content(prompt)
@@ -341,20 +341,30 @@ def get_restricted_roads():
 
 @app.route('/api/action_plans', methods=['POST', 'OPTIONS'])
 def generate_action_plans():
-    data = request.get_json()
-    scenario = data.get('scenario')
-    location = data.get('location')
-    # hazard_info = data.get('hazard_info')
+    if request.method == 'OPTIONS':
+        # Return response for OPTIONS (preflight) request
+        response = jsonify({'message': 'Preflight request successful'})
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+        response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')  # Add credentials support
+        return response
+    else:
+        data = request.get_json()
+        scenario = data.get('scenario')
+        location = data.get('location')
+        # hazard_info = data.get('hazard_info')
 
-    # Validate that all required parameters are present
-    if not (scenario and location):
-        return jsonify({"error": "Missing required parameters."}), 400
+        # Validate that all required parameters are present
+        if not (scenario and location):
+            return jsonify({"error": "Missing required parameters."}), 400
 
-    # Generate the action plans using the provided data
-    plans = generate_detailed_plan(scenario, location)
-    
-    # Return the generated plans as a JSON response
-    return jsonify({"plans": plans}), 200
+        # Generate the action plans using the provided data
+        plans = generate_detailed_plan(scenario, location)
+        if isinstance(plans, str):  
+          plans = plans.split("\n\n") 
+        # Return the generated plans as a JSON response
+        return jsonify({"plans": plans}), 200
 
 if __name__ == '__main__':
     # add_location_documents(location_documents)
