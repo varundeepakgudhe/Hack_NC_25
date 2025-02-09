@@ -7,6 +7,7 @@ import OfflineNavigation from "./Offline";
 import ReliefNavigation from "./ReliefNavigation";
 // // code 9
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import { useGeolocated } from "react-geolocated";
 import {
     GoogleMap,
@@ -25,29 +26,29 @@ const mapContainerStyle = {
 };
 
 // Manually define shelters
-const manualShelters = [
-    { name: "Shelter 1", lat: 35.7796, lng: -78.6282 },
-    { name: "Shelter 2", lat: 35.7746, lng: -78.6400 },
-    { name: "Shelter 3", lat: 35.7721, lng: -78.6500 },
-    { name: "Shelter 4", lat: 35.7766, lng: -78.6610 },
-    // { name: "Shelter 5", lat: 35.769, lng: -78.691}
-];
 
-// Manually define danger zones (These areas should be avoided)
-const dangerZones = [
-    // { lat: 35.7760, lng: -78.6400, radius: 50 }, // 5 km
-    { lat: 35.7766, lng: -78.6610, radius: 250 },
-    {lat: 35.7721, lng: -78.6500,radius: 300 }, // 3 km
-    {lat: 35.7794, lng: -78.6380 , radius: 35},
-];
+// const manualShelters = [
+//     { name: "Shelter 1", lat: 35.7796, lng: -78.6382 },
+//     { name: "Shelter 2", lat: 35.7746, lng: -78.6400 },
+//     { name: "Shelter 3", lat: 35.7721, lng: -78.6500 },
+//     { name: "Shelter 4", lat: 35.7766, lng: -78.6610 },
+// ];
 
-// Manually define restricted roads to avoid
-const restrictedRoads = [
-    { lat: 35.776, lng: -78.6610 }, // Example blocked road inside danger zone
-    { lat: 35.7766, lng: -78.6610 },
-    {lat: 35.7721, lng: -78.6500 },
-    {lat: 35.7790, lng: -78.6403},
-];
+// // Manually define danger zones (These areas should be avoided)
+// const dangerZones = [
+//     // { lat: 35.7760, lng: -78.6400, radius: 50 }, // 5 km
+//     { lat: 35.7766, lng: -78.6610, radius: 400 },
+//     {lat: 35.7721, lng: -78.6500,radius: 400 }, // 3 km
+//     {lat: 35.7790, lng: -78.6400 , radius: 130},
+// ];
+
+// // Manually define restricted roads to avoid
+// const restrictedRoads = [
+//     { lat: 35.776, lng: -78.6610 }, // Example blocked road inside danger zone
+//     { lat: 35.7766, lng: -78.6610 },
+//     {lat: 35.7721, lng: -78.6500 },
+//     {lat: 35.7790, lng: -78.6403},
+// ];
 
 function App() {
     return (
@@ -83,13 +84,48 @@ function HomePage() {
     });
 
     const [directions, setDirections] = useState(null);
+    const [shelters, setShelters] = useState([]);
+    const [dangerZones, setDangerZones] = useState([]);
+    const [restrictedRoads, setRestrictedRoads] = useState([]);
+
 
     useEffect(() => {
+        const fetchShelters = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/api/shelters');
+                setShelters(response.data);
+            } catch (error) {
+                console.error("Error fetching shelters:", error);
+            }
+        };
+
+        const fetchDangerZones = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/api/danger_zones');
+                setDangerZones(response.data);
+            } catch (error) {
+                console.error("Error fetching danger zones:", error);
+            }
+        };
+
+        const fetchRestrictedRoads = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/api/restricted_roads');
+                setRestrictedRoads(response.data);
+            } catch (error) {
+                console.error("Error fetching restricted roads:", error);
+            }
+        };
+
+        fetchShelters();
+        fetchDangerZones();
+        fetchRestrictedRoads();
+
         if (isLoaded && coords) {
             const userLocation = { lat: coords.latitude, lng: coords.longitude };
 
             // Find the nearest shelter that is NOT in a danger zone
-            const nearestShelter = manualShelters
+            const nearestShelter = shelters
                 .filter(shelter => !isInsideDangerZone(shelter.lat, shelter.lng))
                 .reduce((prev, curr) => {
                     const prevDistance = Math.hypot(prev.lat - userLocation.lat, prev.lng - userLocation.lng);
