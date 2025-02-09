@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import pymongo
 import sys
-import certifi
 app = Flask(__name__)
 CORS(app, supports_credentials=True, methods=["GET", "POST", "OPTIONS"], allow_headers=["Content-Type"])  # Fixes CORS issues
 
@@ -11,7 +10,7 @@ CORS(app, supports_credentials=True, methods=["GET", "POST", "OPTIONS"], allow_h
 # you should not store your password in plain-text here.
 
 try:
-  client = pymongo.MongoClient("mongodb+srv://jahnavi:hackncstate25@cluster0.gq37d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", tlsCAFile=certifi.where())
+  client = pymongo.MongoClient("mongodb+srv://jahnavi:hackncstate25@cluster0.gq37d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   
 # return a friendly error if a URI error is thrown 
 except pymongo.errors.ConfigurationError:
