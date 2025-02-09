@@ -1,4 +1,8 @@
-
+import './App.css';
+import DeviceFrame from "react-device-frame";
+// import  {DeviceFrameset}  from "react-device-frameset";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import AlertsPage from "./alerts";
 // // code 9
 import React, { useState, useEffect } from "react";
 import { useGeolocated } from "react-geolocated";
@@ -24,6 +28,7 @@ const manualShelters = [
     { name: "Shelter 2", lat: 35.7746, lng: -78.6400 },
     { name: "Shelter 3", lat: 35.7721, lng: -78.6500 },
     { name: "Shelter 4", lat: 35.7766, lng: -78.6610 },
+    // { name: "Shelter 5", lat: 35.769, lng: -78.691}
 ];
 
 // Manually define danger zones (These areas should be avoided)
@@ -43,7 +48,24 @@ const restrictedRoads = [
 ];
 
 function App() {
-    // Ensure Google Maps API is loaded
+    return (
+      <div className="iphone-container">
+        <div className="iphone-notch"></div>
+        <div className="iphone-screen">
+        <Router>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/alerts" element={<AlertsPage />} />
+                <Route path="/danger" element={<h2>☠️ Danger Info Coming Soon</h2>} />
+                <Route path="/finance" element={<h2>💵 Financial Aid Info Coming Soon</h2>} />
+            </Routes>
+        </Router>
+        </div>
+        </div>
+    );
+}
+
+function HomePage() {
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: GOOGLE_MAPS_API_KEY,
         libraries: ["places"],
@@ -84,9 +106,9 @@ function App() {
                     origin: userLocation,
                     destination: { lat: nearestShelter.lat, lng: nearestShelter.lng },
                     travelMode: "DRIVING",
-                    avoidHighways: false,  // Helps avoid blocked areas
+                    avoidHighways: false,
                     avoidTolls: false,
-                    waypoints: waypoints, // Forces Google to bypass restricted roads
+                    waypoints: waypoints,
                 },
                 (result, status) => {
                     if (status === "OK") {
@@ -99,29 +121,29 @@ function App() {
         }
     }, [coords, isLoaded]);
 
-    // Function to check if a location is inside a danger zone
+    // Check if location is inside a danger zone
     const isInsideDangerZone = (lat, lng) => {
         return dangerZones.some(zone => {
-            const distance = Math.hypot(lat - zone.lat, lng - zone.lng) * 111000; // Convert degrees to meters
+            const distance = Math.hypot(lat - zone.lat, lng - zone.lng) * 111000;
             return distance < zone.radius;
         });
     };
 
-    // Function to generate waypoints to avoid restricted roads
+    // Generate waypoints to force rerouting around blocked roads
     const generateWaypoints = (start, end) => {
         const waypoints = [];
 
         restrictedRoads.forEach(road => {
-            const detourLat = road.lat + 0.02;  // Shift to force rerouting
-            const detourLng = road.lng + 0.02;
-            
+            const detourLat = road.lat + 0.01;
+            const detourLng = road.lng + 0.01;
+
             waypoints.push({
                 location: { lat: detourLat, lng: detourLng },
                 stopover: false,
             });
         });
 
-        return waypoints;
+        return waypoints.slice(0, 2);
     };
 
     if (!isGeolocationAvailable) {
@@ -132,62 +154,60 @@ function App() {
         return <h2>⚠️ Geolocation is disabled. Please enable location access.</h2>;
     }
 
-    if (!isLoaded) {
+    if (!isLoaded || !coords) {
         return <h2>🔄 Loading Google Maps...</h2>;
     }
 
     return (
-        <div style={{ textAlign: "center", padding: "20px" }}>
-            <h1>📍 Disaster Navigation Web App</h1>
-            {coords ? (
-                <>
-                    <h2>
-                        🌍 Latitude: {coords.latitude} <br />
-                        📍 Longitude: {coords.longitude}
-                    </h2>
-                    <GoogleMap
-                        mapContainerStyle={mapContainerStyle}
-                        center={{ lat: coords.latitude, lng: coords.longitude }}
-                        zoom={14}
-                    >
-                        {/* Traffic Layer - Shows real-time traffic */}
-                        <TrafficLayer />
+        <div className="phone-container">
+            {/* Header */}
+            <div className="header">🚨 Disaster Navigator</div>
 
-                        {/* User's Location */}
-                        <Marker position={{ lat: coords.latitude, lng: coords.longitude }} />
+            {/* User's Location */}
+            <div className='coords'>
+            <h3>
+                📍 Latitude: {coords.latitude} <br />
+                🌎 Longitude: {coords.longitude}
+            </h3>
+            </div>
+            {/* Map Container */}
+            <div className="map-container">
+                <GoogleMap mapContainerStyle={mapContainerStyle} center={{ lat: coords.latitude, lng: coords.longitude }} zoom={14}>
+                    <TrafficLayer />
+                    <Marker position={{ lat: coords.latitude, lng: coords.longitude }} />
 
-                        {/* Shelter Locations */}
-                        {manualShelters.map((shelter, index) => (
-                            <Marker
-                                key={index}
-                                position={{ lat: shelter.lat, lng: shelter.lng }}
-                                title={shelter.name}
-                                icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-                            />
-                        ))}
+                    {/* Shelter Locations */}
+                    {manualShelters.map((shelter, index) => (
+                        <Marker key={index} position={{ lat: shelter.lat, lng: shelter.lng }} title={shelter.name} icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" />
+                    ))}
 
-                        {/* Danger Zones (Red Circles) */}
-                        {dangerZones.map((zone, index) => (
-                            <Circle
-                                key={index}
-                                center={{ lat: zone.lat, lng: zone.lng }}
-                                radius={zone.radius}
-                                options={{
-                                    fillColor: "rgba(255, 0, 0, 0.4)", // Red with transparency
-                                    strokeColor: "red",
-                                    strokeOpacity: 1,
-                                    strokeWeight: 2,
-                                }}
-                            />
-                        ))}
+                    {/* Danger Zones */}
+                    {dangerZones.map((zone, index) => (
+                        <Circle
+                            key={index}
+                            center={{ lat: zone.lat, lng: zone.lng }}
+                            radius={zone.radius}
+                            options={{ fillColor: "rgba(255, 0, 0, 0.4)", strokeColor: "red", strokeOpacity: 1, strokeWeight: 2 }}
+                        />
+                    ))}
 
-                        {/* Render the Route to the Nearest Safe Shelter */}
-                        {directions && <DirectionsRenderer directions={directions} />}
-                    </GoogleMap>
-                </>
-            ) : (
-                <h2>Fetching location...</h2>
-            )}
+                    {/* Route to the nearest safe shelter */}
+                    {directions && <DirectionsRenderer directions={directions} />}
+                </GoogleMap>
+            </div>
+
+            {/* Action Buttons */}
+            {/* <button className="btn sos-button">🚨 SOS Emergency</button> */}
+            {/* <button className="btn recalculate-button">🔄 Recalculate Route</button> */}
+            
+
+            {/* Bottom Navigation */}
+            <div className="navbar">
+                <Link to="/alerts">⚠️</Link>
+                <Link to="/">🏠</Link>
+                <Link to="/danger">☠️</Link>
+                <Link to="/finance">💵</Link>
+            </div>
         </div>
     );
 }
