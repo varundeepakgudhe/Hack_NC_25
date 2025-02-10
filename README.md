@@ -79,7 +79,7 @@ npm start
 ## **📢 Team & Acknowledgments**  
 
 💡 **Built at Hack_NCState** 🏆  
-💻 Developed by ** Varun Deepak Gudhe, Mugdha Joshi, Soubhagya Akkena, Jahnavi Panchavati **  
+💻 Developed by **Varun Deepak Gudhe**, **Mugdha Joshi**, **Soubhagya Akkena**, **Jahnavi Panchavati.**  
 
 🙏 Thanks to **Hack_NCState organizers** for an incredible hackathon experience!  
 
