@@ -30,7 +30,7 @@ Natural disasters often leave people **struggling to find safe routes**, locate 
 
 ---
 
-### **⚙️ How It Works**  
+## **⚙️ How It Works**  
 
 1️⃣ **User receives an emergency broadcast or SMS** with shelter details.  
 2️⃣ **Our AI extracts shelter coordinates** from the message.  
@@ -66,6 +66,7 @@ npm start
 🔹 **Dynamically avoiding danger zones** using Google Maps API required fine-tuning **waypoints**.  
 🔹 **Extracting coordinates from emergency messages** with AI needed NLP optimization.  
 🔹 **Balancing real-time and offline functionality** for disaster scenarios was crucial.  
+🔹 **Crafting effective AI prompts for GenAI using the Gemini model** while accurately fetching relevant data from MongoDB was challenging. 
 
 ---
 
