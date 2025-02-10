@@ -32,11 +32,11 @@ Natural disasters often leave people **struggling to find safe routes**, locate 
 
 ## **⚙️ How It Works**  
 
-1️⃣ **User receives an emergency broadcast or SMS** with shelter details.  
-2️⃣ **Our AI extracts shelter coordinates** from the message.  
-3️⃣ **Google Maps API generates the safest route** while avoiding **danger zones**.  
-4️⃣ If **offline**, the app uses **pre-saved maps** to guide users.  
-5️⃣ AI gives **personalised** prompts based on disaster type and **user location**.  
+1️⃣ User receives an emergency broadcast or SMS with shelter details.  
+2️⃣ Our AI extracts shelter coordinates from the message.  
+3️⃣ Google Maps API generates the safest route while avoiding danger zones.  
+4️⃣ If offline, the app uses pre-saved maps to guide users.  
+5️⃣ AI gives personalized prompts based on disaster type and user location.  
 ---
 
 ## **🚀 Installation & Setup**  
