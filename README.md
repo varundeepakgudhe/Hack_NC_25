@@ -42,7 +42,7 @@ Natural disasters often leave people **struggling to find safe routes**, locate 
 
 1️⃣ Clone the repository:  
 ```bash
-git clone https://github.com/your-username/disaster-navigation.git
+git clone https://github.com/varundeepakgudhe/Hack_NC_25.git
 cd disaster-navigation
 ```
 2️⃣ Install dependencies:  
