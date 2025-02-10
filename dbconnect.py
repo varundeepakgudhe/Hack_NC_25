@@ -367,6 +367,33 @@ def generate_action_plans():
           plans = plans.split("\n\n") 
         # Return the generated plans as a JSON response
         return jsonify({"plans": plans}), 200
+    
+# @app.route('/api/recommend_insurance', methods=['POST', 'OPTIONS'])
+# def Insurance():
+#     if request.method == 'OPTIONS':
+#         # Return response for OPTIONS (preflight) request
+#         response = jsonify({'message': 'Preflight request successful'})
+#         response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+#         response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
+#         response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+#         response.headers.add('Access-Control-Allow-Credentials', 'true')  # Add credentials support
+#         return response
+#     else:
+#         data = request.get_json()
+#         scenario = data.get("scenario")
+#         location = data.get("location")
+
+#         print(f"Received data: scenario={scenario}, location={location}")
+
+#         if not scenario or not location:
+#             return jsonify({"error": "Both scenario and location are required"}), 400
+        
+
+#         recommendations = recommend_insurance(scenario, location)
+#         print(f"Insurance recommendations: {recommendations}")
+#         return jsonify({"insurance_recommendations": recommendations})
+
+
 
 if __name__ == '__main__':
     # add_location_documents(location_documents)
