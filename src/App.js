@@ -69,7 +69,7 @@ function App() {
                 <Route path="/offline" element={<OfflineNavigation />} />
                 <Route path="/alerts" element={<AlertsPage />} />
                 <Route path="/ReliefNavigation" element={<ReliefNavigation />} />
-                <Route path="/finance" element={<h2>💵 Financial Aid Info Coming Soon</h2>} />
+                <Route path="/Insurance" element={<h2>💵 Financial Aid Info Coming Soon</h2>} />
                 {/* <Route path="/Insurance" element={<Insurance />} /> */}
             </Routes>
         </Router>
@@ -269,7 +269,7 @@ function HomePage() {
                 <Link to="/alerts">⚠️</Link>
                 <Link to="/">🏠</Link>
                 <Link to="/ReliefNavigation">🚑</Link>
-                <Link to="/finance">💵</Link>
+                <Link to="/Insurance">💵</Link>
             </div>
         </div>
     );
