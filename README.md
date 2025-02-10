@@ -70,9 +70,10 @@ npm start
 
 ## **🎯 Future Enhancements**  
 
-🚧 **Twilio / SMS API** – Automate **real-time emergency SMS alerts integration**.  
-🗺️ **Custom Routing Algorithm** – Implement an **independent A* navigation system** for full control over path optimization.  
-🌍 **Multiple Disaster Types** – Expand to **earthquakes, floods, and other crises** with AI-based predictions.  
+<li>Smart Insurance Policy Recommendations and Claim Assistance</li>
+<li>Community-Driven & Government Collaboration</li>
+<li>Crowdfunding & Donations for Disaster Relief</li>
+<li>Volunteer Matching to Shelters and Disaster zones </li>
 
 ---
 
