@@ -30,7 +30,7 @@ Natural disasters often leave people **struggling to find safe routes**, locate 
 
 ---
 
-## **⚙️ How It Works**  
+## ⚙️ How It Works  
 
 1️⃣ User receives an emergency broadcast or SMS with shelter details.  
 2️⃣ Our AI extracts shelter coordinates from the message.  
