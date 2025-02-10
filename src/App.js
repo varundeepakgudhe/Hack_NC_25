@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation } from "react
 import AlertsPage from "./alerts";
 import OfflineNavigation from "./Offline";
 import ReliefNavigation from "./ReliefNavigation";
+import Preparedness from "./Preparedness";
 // // code 9
 import React, { useState, useEffect } from "react";
 import { useGeolocated } from "react-geolocated";
@@ -17,7 +18,7 @@ import {
     Circle
 } from "@react-google-maps/api";
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyBo_OfruLbbmPSaM-H19PD4Givdmes0RgI"; 
+const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 const mapContainerStyle = {
     width: "100%",
@@ -63,6 +64,7 @@ function App() {
                 <Route path="/alerts" element={<AlertsPage />} />
                 <Route path="/ReliefNavigation" element={<ReliefNavigation />} />
                 <Route path="/finance" element={<h2>💵 Financial Aid Info Coming Soon</h2>} />
+                <Route path="/Preparedness" element={<Preparedness />} />
             </Routes>
         </Router>
         </div>
@@ -211,6 +213,7 @@ function HomePage() {
             {/* Bottom Navigation */}
             <div className="navbar">
                 <Link to="/alerts">⚠️</Link>
+                <Link to="/Preparedness">ℹ️</Link>
                 <Link to="/">🏠</Link>
                 <Link to="/ReliefNavigation">☠️</Link>
                 <Link to="/finance">💵</Link>

@@ -4,7 +4,7 @@ import { GoogleMap, useJsApiLoader, Marker, DirectionsRenderer, Circle } from "@
 import './App.css';
 
 // ✅ Google Maps API Key
-const GOOGLE_MAPS_API_KEY = "AIzaSyBo_OfruLbbmPSaM-H19PD4Givdmes0RgI";
+const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 const mapContainerStyle = {
     width: "100%",
@@ -147,6 +147,7 @@ function EmergencyNavigation() {
             {/* Navigation Buttons */}
             <div className="navbar">
                 <Link to="/alerts">⚠️</Link>
+                <Link to="/Preparedness">ℹ️</Link>
                 <Link to="/">🏠</Link>
                 <Link to="/ReliefNavigation">☠️</Link>
                 <Link to="/finance">💵</Link>
