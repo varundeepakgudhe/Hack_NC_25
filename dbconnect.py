@@ -326,6 +326,20 @@ def generate_detailed_plan(scenario, location):
 #       zones = get_zones_by_state(state)
 #       return jsonify(zones)
 
+# def recommend_insurance(scenario, location):
+#     prompt = f"""
+#     Given the following disaster scenario in {location}:
+#     {scenario}
+    
+#     Suggest three types of insurance policies that would be most beneficial for individuals or businesses in this area. 
+#     Provide a concise response for each recommendation, explaining why it is suitable, what it covers, and any other 
+#     relevant details. Limit the response to 100-200 words.
+#     """
+    
+#     response = model.generate_content(prompt)
+#     print(response)
+#     return response.text
+
 @app.route('/api/shelters', methods=['GET'])
 def get_shelters():
     shelters = list(shelters_collection.find({}, {"_id": 0, "name": 1, "lat": 1, "lng": 1, "state": 1}))
@@ -400,7 +414,7 @@ if __name__ == '__main__':
     add_location_documents(manualShelters, shelters_collection)
     add_location_documents(dangerZones, danger_zones_collection)
     add_location_documents(restrictedRoads, restricted_roads_collection)
-
+    # recommend_insurance("flood", "LA")
     app.run(host="0.0.0.0", port=5000, debug=True)
 
 # # Example: Query for locations based on a given latitude & longitude
