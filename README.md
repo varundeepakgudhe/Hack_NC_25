@@ -82,9 +82,10 @@ npm start
 ## **📢 Team & Acknowledgments**  
 
 💡 **Built at Hack_NCState** 🏆  
+
 💻 Developed by **Varun Deepak Gudhe**, **Mugdha Joshi**, **Soubhagya Akkena**, **Jahnavi Panchavati.**  
 
-🙏 Thanks to **Hack_NCState organizers** for an incredible hackathon experience!  
+🙏 Thanks to **Hack_NCState organizers** for an incredible hackathon experience! Checkout our [Devpost](https://devpost.com/software/disasternavigator?ref_content=user-portfolio&ref_feature=in_progress)
 
 🚀 **Let’s make disaster preparedness smarter and safer for everyone.**  
 
