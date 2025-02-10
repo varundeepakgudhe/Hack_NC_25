@@ -6,6 +6,7 @@ import AlertsPage from "./alerts";
 import OfflineNavigation from "./Offline";
 import ReliefNavigation from "./ReliefNavigation";
 import Preparedness from './Preparedness';
+// import Insurance from './Insuranceaxios.post("http://127.0.0.1:5001/api/recommend_insurance", data)';
 // // code 9
 import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios';
@@ -69,6 +70,7 @@ function App() {
                 <Route path="/alerts" element={<AlertsPage />} />
                 <Route path="/ReliefNavigation" element={<ReliefNavigation />} />
                 <Route path="/finance" element={<h2>💵 Financial Aid Info Coming Soon</h2>} />
+                {/* <Route path="/Insurance" element={<Insurance />} /> */}
             </Routes>
         </Router>
         </div>
