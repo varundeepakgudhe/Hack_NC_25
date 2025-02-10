@@ -36,7 +36,7 @@ Natural disasters often leave people **struggling to find safe routes**, locate 
 2️⃣ **Our AI extracts shelter coordinates** from the message.  
 3️⃣ **Google Maps API generates the safest route** while avoiding **danger zones**.  
 4️⃣ If **offline**, the app uses **pre-saved maps** to guide users.  
-5️⃣ AI gives personalised prompts based on disaster type and user location.  
+5️⃣ AI gives **personalised** prompts based on disaster type and **user location**.  
 ---
 
 ## **🚀 Installation & Setup**  
