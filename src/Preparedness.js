@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
-
+import OpenAI from "openai";
 
 const styles = {
    
@@ -23,27 +23,45 @@ function Preparedness() {
             setError("⚠️ Please select a disaster scenario and enter your location.");
             return;
         }
-
+    
         setError(""); // Clear any previous errors
 
         try {
-            const response = await axios.post("http://127.0.0.1:5001/api/action_plans", {
-                scenario: scenario.toLowerCase(),
-                location: location,
+            const openai = new OpenAI({
+                apiKey: process.env.REACT_APP_OPENAI_API_KEY,dangerouslyAllowBrowser: true});
+    
+            const response = await openai.chat.completions.create({
+                model: "gpt-3.5-turbo",
+                messages: [
+                    { role: "system", content: "You are a helpful assistant." },
+                    {
+                        role: "user",
+                        content:` Given the following disaster scenario in ${location}:
+                        ${scenario}
+                        
+                        Generate three detailed plans of action, helping users to navigate through the situation and be well prepared. 
+                        Give a concise response for each plan, including the steps to take, resources to use, and any other relevant information. 
+                        Keep the response within 100 words and ensure there are no hashtags or stars or any symbols in output, making it print-friendly.
+                        Give each plan is separated by ##`,
+                        
+                        
+                    },
+                ],
+                store: true,
             });
 
-            console.log("API Response:", response.data);
+            let plansData = response.choices[0].message.content.split("##");//response.data.choices[0].message.content.split("\n\n"); // Convert text into an array
+            // if (typeof plansData === "string") {
+            //     plansData = plansData.split("\n\n");  // Convert text into an array
+            // }
+            console.log(plansData);
+            setActionPlans(plansData);
+            // response.then((result) => console.log(result.choices[0].message));
 
-            let plansData = response.data.plans;
-
-            // ✅ Ensure plans is an array before setting state
-            if (typeof plansData === "string") {
-                plansData = plansData.split("\n\n");  // Convert text into an array
-            }
-            setActionPlans(response.data.plans);
-            
+    
         } catch (err) {
-            setError("❌ Failed to fetch action plans. Please try again.");
+            const errorMessage = `❌ Failed to fetch action plans. ${err.message || err}`;
+            setError(errorMessage);
             console.error("Error fetching action plans:", err);
         }
     };
@@ -79,11 +97,11 @@ function Preparedness() {
    
             {/* Display Action Plans */}
             {actionPlans.length > 0 && (
-                <div style={styles.section}>
-                    <h2 style={styles.label}>📋 Your Action Plan:</h2>
+                <div className="actionplan-list">
+                    <h2 >📋 Your Action Plan:</h2>
                     <ul>
                         {actionPlans.map((plan, index) => (
-                            <li key={index} style={styles.listItem}>🔹 {plan}</li>
+                            <li key={index} style={styles.listItem}>{plan}</li>
                         ))}
                     </ul>
                 </div>

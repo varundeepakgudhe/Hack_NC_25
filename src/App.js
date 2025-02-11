@@ -54,8 +54,6 @@ function App() {
     return (
       <div className="iphone-container">
         <div className="iphone-notch"></div>
-        {/* Toggle Button for Online/Offline Mode */}
-        {/* <ModeToggle /> */}
         <div className="iphone-screen">
         <Router>
             <Routes>

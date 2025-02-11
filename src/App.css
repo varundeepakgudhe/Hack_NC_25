@@ -174,8 +174,8 @@ body {
   font-size: 40px;
 }
 
-.header_alert {
-  background-color: yellow; /* Yellow background */
+.header-alert {
+  background-color: red; /* Yellow background */
   color: black; /* Black text */
   font-weight: bold; /* Make text bold */
   padding: 10px; /* Add some spacing */
@@ -192,8 +192,6 @@ body {
 
 
 
-
-
 /* for alerts page */
 
 
@@ -201,6 +199,11 @@ body {
   padding: 15px;
   max-height: 550px; 
   overflow-y: auto; /* Enables scrolling */
+}
+
+.actionplan-list {
+  overflow-y: auto;
+  max-height: 450px;
 }
 
 .alert-box {
@@ -224,14 +227,7 @@ body {
   font-size: 14px;
 }
 
-.header-alert {
-  background: black;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 20px;
-}
+
 
 
 
