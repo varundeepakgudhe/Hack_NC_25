@@ -4,9 +4,11 @@
 ![Screenshot 2025-02-10 at 2 46 56 PM](public/app.png)
 
 
-**[Demo](dreamy-blini-fdb9b1.netlify.app)**
 #### **🚨 Overview**  
 Natural disasters often leave people **struggling to find safe routes**, locate shelters, and make quick evacuation decisions—especially when communication networks are unreliable. Inspired by recent events like the **LA wildfires**, our team developed an **AI-powered Disaster Navigation App** that provides **real-time and offline emergency routing**, guiding users to safety while **avoiding danger zones**.  
+
+---
+🔗 **Live Demo:** [View Here](https://dreamy-blini-fdb9b1.netlify.app/)
 
 ---
 
