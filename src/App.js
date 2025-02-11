@@ -1,7 +1,7 @@
 import './App.css';
 // import DeviceFrame from "react-device-frame";
 // import  {DeviceFrameset}  from "react-device-frameset";
-import { BrowserRouter as Router, Route, Routes, Link, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link} from "react-router-dom";
 import AlertsPage from "./alerts";
 import OfflineNavigation from "./Offline";
 import ReliefNavigation from "./ReliefNavigation";
