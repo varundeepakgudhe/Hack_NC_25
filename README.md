@@ -9,6 +9,7 @@ Natural disasters often leave people **struggling to find safe routes**, locate 
 
 ---
 🔗 **Live Demo:** [View Here](https://dreamy-blini-fdb9b1.netlify.app/)
+**NOTE:** For better performance try in Android or Chrome based browsers.
 
 ---
 
