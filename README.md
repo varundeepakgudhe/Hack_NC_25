@@ -1,7 +1,7 @@
 ### **📍 AI-Powered Disaster Navigation App**
 **🏆 Built at Hack_NCState**  
 
-![Screenshot 2025-02-10 at 2 46 56 PM](public/app.png)
+![Screenshot 2025-02-10 at 2 46 56 PM](public/app_new.png)
 
 
 #### **🚨 Overview**  
