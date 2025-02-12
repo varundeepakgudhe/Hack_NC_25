@@ -13,7 +13,7 @@ body {
 /* Mobile-sized container (phone simulation) */
 .phone-container {
   width: 340px; /* Standard mobile size */
-  height: 667px;
+  height: 670px;
   margin: 0 auto;
   padding: 20px;
   background-color: #ffffff; /* White background */
@@ -23,7 +23,8 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  top: 30px;
+  top: 35px;
+  padding-top: 10px;
 }
 
 /* Header styles */
@@ -38,6 +39,7 @@ body {
   color: white;
   border-radius: 10px;
   text-align: center;
+  
 }
 
 /* Map container */
@@ -228,8 +230,30 @@ body {
 }
 
 
+.interactive-box {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.interactive-box:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3); /* Increase shadow */
+}
 
 
+@keyframes emergencyBlink {
+  0% { background-color: red; }
+  50% { background-color: rgb(176, 8, 8); }
+  100% { background-color: red; }
+}
+
+.blinking-header {
+  color: white;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px;
+  animation: emergencyBlink 0.5s infinite alternate;
+}
 
 /* .input-container {
   top: 100px; 
@@ -256,3 +280,33 @@ textarea {
   text-align: right;
   font-weight: bold;
 }
+.mobile-status-bar {
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  right: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  /* background: black; */
+  padding: 4px -1px 5px 12px;
+  border-radius: 8px;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 14px;
+}
+
+.status-icons {
+  /* left: 25px;
+  right: 15px; */
+  display: flex;
+  gap: 2px;
+  align-items: right;
+}
+
+.battery {
+  color: lightgreen;
+}
+

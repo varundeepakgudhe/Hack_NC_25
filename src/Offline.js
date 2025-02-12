@@ -149,7 +149,7 @@ function EmergencyNavigation() {
                 <Link to="/alerts">⚠️</Link>
                 <Link to="/Preparedness">ℹ️</Link>
                 <Link to="/">🏠</Link>
-                <Link to="/ReliefNavigation">☠️</Link>
+                <Link to="/ReliefNavigation">🚑</Link>
                 <Link to="/finance">💵</Link>
             </div>
         </div>

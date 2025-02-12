@@ -6,6 +6,7 @@ import AlertsPage from "./alerts";
 import OfflineNavigation from "./Offline";
 import ReliefNavigation from "./ReliefNavigation";
 import Preparedness from "./Preparedness";
+import StatusBar from "./StatusBar"; 
 // // code 9
 import React, { useState, useEffect } from "react";
 import { useGeolocated } from "react-geolocated";
@@ -53,6 +54,7 @@ const restrictedRoads = [
 function App() {
     return (
       <div className="iphone-container">
+        <StatusBar /> {/* Add Clock Here */}
         <div className="iphone-notch"></div>
         <div className="iphone-screen">
         <Router>
@@ -213,7 +215,7 @@ function HomePage() {
                 <Link to="/alerts">⚠️</Link>
                 <Link to="/Preparedness">ℹ️</Link>
                 <Link to="/">🏠</Link>
-                <Link to="/ReliefNavigation">☠️</Link>
+                <Link to="/ReliefNavigation">🚑</Link>
                 <Link to="/finance">💵</Link>
             </div>
         </div>

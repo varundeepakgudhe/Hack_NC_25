@@ -14,12 +14,12 @@ function AlertsPage() {
     return (
         <div className="phone-container">
             {/* Header */}
-            <div className="header-alert">⚠️ Emergency Alerts</div>
+            <div className="header-alert blinking-header">⚠️ Emergency Alerts</div>
 
             {/* Alerts List */}
             <div className="alerts-list">
                 {alerts.map((alert) => (
-                    <div key={alert.id} className="alert-box">
+                    <div key={alert.id} className="alert-box interactive-box">
                         <h3>{alert.type}</h3>
                         <p><strong>📍 Location:</strong> {alert.location}</p>
                         <p><strong>📅 Expected Date:</strong> {alert.date}</p>
@@ -33,7 +33,7 @@ function AlertsPage() {
                  <Link to="/alerts">⚠️</Link>
                  <Link to="/Preparedness">ℹ️</Link>
                  <Link to="/">🏠</Link>
-                 <Link to="/ReliefNavigation">☠️</Link>
+                 <Link to="/ReliefNavigation">🚑</Link>
                  <Link to="/finance">💵</Link>
           </div>
         </div>

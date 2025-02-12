@@ -69,7 +69,8 @@ function Preparedness() {
             <div className="phone-container">
             {/* Header */}
             <div className="header">📌 Disaster Preparedness</div>
-
+             
+             <br></br>
             {/* Disaster Scenario Selection */}
             <div style={styles.section}>
                 <label style={styles.label}>🌍 Select a Disaster Scenario: </label>
@@ -110,7 +111,7 @@ function Preparedness() {
                 <Link to="/alerts">⚠️</Link>
                 <Link to="/Preparedness">ℹ️</Link>
                 <Link to="/">🏠</Link>
-                <Link to="/ReliefNavigation">☠️</Link>
+                <Link to="/ReliefNavigation">🚑</Link>
                 <Link to="/finance">💵</Link>
             </div>
         </div>
