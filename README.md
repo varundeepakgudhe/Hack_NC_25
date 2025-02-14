@@ -65,6 +65,58 @@ REACT_APP_GOOGLE_MAPS_API_KEY=your_api_key_here
 ```bash
 npm start
 ```
+---
+
+## **🚀 Running the Disaster Navigation App with Docker**
+This project is fully containerized with **Docker**! You can run it in two ways:
+
+### **1️⃣ One-Time Run (Using Command Line)**
+If you want to run the app **without modifying files**, use this command:  
+```sh
+docker run -p 3000:3000 \
+  -e REACT_APP_GOOGLE_MAPS_API_KEY="your-google-maps-api-key" \
+  -e REACT_APP_OPENAI_API_KEY="your-openai-api-key" \
+  varundeepakgudhe/disaster-navigation
+```
+🔹 **This will start the app immediately!**  
+🔹 Replace `"your-google-maps-api-key"` and `"your-openai-api-key"` with actual values.  
+
+---
+
+### **2️⃣ Persistent Setup (Using `.env` and Docker Compose)**
+If you **don’t want to enter API keys every time**, follow these steps:
+
+#### **📌 Step 1: Create a `.env` file** (in the same directory as `docker-compose.yml`):
+```txt
+REACT_APP_GOOGLE_MAPS_API_KEY=your-google-maps-api-key
+REACT_APP_OPENAI_API_KEY=your-openai-api-key
+```
+
+#### **📌 Step 2: Create a `docker-compose.yml` file**:
+```yaml
+version: "3.8"
+services:
+  react-app:
+    image: varundeepakgudhe/disaster-navigation
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+```
+
+#### **📌 Step 3: Run the app**
+```sh
+docker-compose up
+```
+🔹 **Now the app automatically loads API keys from `.env`**  
+🔹 No need to enter keys every time! 🎉  
+
+---
+
+## **📌 Notes**
+✅ **Make sure Docker is installed** before running these commands.  
+✅ This app runs on **`http://localhost:3000`** by default.  
+✅ **To stop the container**, press `Ctrl + C` or run `docker stop <container_id>`.  
 
 ---
 
